@@ -1,0 +1,35 @@
+-- 1
+
+-- a
+select id, person_name
+from works
+where company_name = 'BigBank';
+
+-- b
+select works.id, works.person_name, employee.city
+from works
+left join employee
+on works.id = employee.id
+where works.company_name = 'BigBank';
+
+-- c
+select employee.id, employee.person_name, employee.street, employee.city
+from employee
+left join  works
+on employee.id = works.id
+where works.salary > 10000;
+
+--d
+select employee.id, employee.person_name
+from employee
+left join company
+where employee.city = company.city;
+
+
+
+-- 2
+
+-- a
+select id, person_name
+from works
+where company_name != 'BigBank';
