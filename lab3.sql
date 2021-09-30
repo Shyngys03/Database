@@ -49,14 +49,24 @@ from instructor
 group by dept_name;
 
 -- b
-select building, count(course_id)
-from section
-group by building;
+select building
+from (select building, count(course_id)
+    from section
+    group by building) as foo
+where foo.count = (select max(cnt.count)
+    from (select building, count(course_id)
+        from section
+        group by building) as cnt);
 
 -- c
-select count(course_id)
+select dept_name
+from (select dept_name, count(course_id) as count_courses
 from course
-group by dept_name;
+group by dept_name) as foo
+where count_courses = (select min(cnt.count_courses)
+    from (select course.dept_name, count(course_id) as count_courses
+        from course
+        group by course.dept_name) as cnt);
 
 -- d
 select foo.ID, foo.name
@@ -119,6 +129,7 @@ inner join student s
 inner join takes t
     on s.ID = t.ID
 where grade != 'A' and grade != 'A-';
+
 
 -- e
 select distinct c.course_id, title
