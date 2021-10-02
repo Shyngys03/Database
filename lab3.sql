@@ -104,7 +104,7 @@ where grade = 'A' or grade = 'A-'
 order by name;
 
 -- b
-select i_ID, s_ID, grade
+select i_ID, s_ID, course_id, grade
 from advisor
 inner join student s
     on s.ID = advisor.s_ID
